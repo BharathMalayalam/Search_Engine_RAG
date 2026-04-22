@@ -1,0 +1,20 @@
+{
+  "leave_letter": {
+    "title": "Formal Leave Application",
+    "tone": "Polite and Concerned",
+    "structure": "To,\n[RECIPIENT_NAME],\n[RECIPIENT_TITLE],\n\nSubject: Leave Application regarding [TOPIC]\n\nRespected [SALUTATION],\n\nI am writing to formally request a leave of absence. Due to [REASON], I am unable to attend the office/school. I have ensured that my current tasks are organized for my absence.\n\nI hope you will consider my request and grant me permission for the same.\n\nThanking you,\n\nYours sincerely,\n[YOUR_NAME]",
+    "keywords": ["sick", "leave", "absence", "vacation", "fever", "illness"]
+  },
+  "permission_letter": {
+    "title": "Professional Permission Request",
+    "tone": "Formal and Respectful",
+    "structure": "To,\n[RECIPIENT_NAME],\n[RECIPIENT_TITLE],\n\nSubject: Request for Permission regarding [TOPIC]\n\nRespected [SALUTATION],\n\nI am writing to seek your official permission to [ACTION]. This is necessary because [REASON]. I assure you that I will be responsible and minimize any disruption to our regular schedule.\n\nI would be grateful for your kind approval on this matter.\n\nRegards,\n\n[YOUR_NAME]",
+    "keywords": ["permission", "allow", "request", "conduct", "event", "seminar"]
+  },
+  "emergency_request": {
+    "title": "Urgent Request",
+    "tone": "Serious and Direct",
+    "structure": "Dear [RECIPIENT_NAME],\n\nI am reaching out to formally request an urgent leave of absence due to an unexpected emergency. [REASON]. Under these circumstances, I require immediate time off to attend to this matter.\n\nPlease let me know if there are any additional details I need to provide upon my return.\n\nSincerely,\n\n[YOUR_NAME]",
+    "keywords": ["emergency", "urgent", "immediate", "unexpected", "serious"]
+  }
+}

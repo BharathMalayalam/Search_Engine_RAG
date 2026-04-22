@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharath AI | Super Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #0b0e14;
+            --card-bg: rgba(22, 27, 34, 0.8);
+            --input-bg: #0d1117;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --border: #30363d;
+            --accent: #238636;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-hover: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0b0e14);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #a5b4fc, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .input-box-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        textarea {
+            width: 100%;
+            background-color: rgba(13, 17, 23, 0.6);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 20px;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            resize: none;
+            min-height: 120px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+            background-color: rgba(13, 17, 23, 0.8);
+        }
+
+        /* Profiling Section */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .profile-item {
+            text-align: left;
+        }
+
+        .profile-item label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        select {
+            width: 100%;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        select:hover {
+            background-color: var(--glass-hover);
+            border-color: #4b5563;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 14px;
+            background: var(--glass);
+            border-radius: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-row:hover {
+            background: var(--glass-hover);
+        }
+
+        #sendEmail {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+        }
+
+        #emailGroup {
+            display: none;
+            margin-bottom: 24px;
+            animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input[type="email"] {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 14px;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 18px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+
+        .main-btn:active {
+            transform: translateY(0);
+        }
+
+        .main-btn:disabled {
+            background: #334155;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        #resultArea {
+            margin-top: 40px;
+            text-align: left;
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-container {
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: var(--glass-hover);
+            border-color: #4b5563;
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        textarea.result-editor {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 24px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            min-height: 400px;
+            resize: vertical;
+        }
+
+        textarea.result-editor:focus {
+            outline: none;
+        }
+
+        .status-msg {
+            margin-top: 20px;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .success { background: rgba(35, 134, 54, 0.15); color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.3); }
+        .error { background: rgba(248, 81, 73, 0.15); color: #f85149; border: 1px solid rgba(248, 81, 73, 0.3); }
+
+        /* Loader */
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bharath AI</h1>
+        <div class="tagline">Super Agent: Research + Content + RAG</div>
+
+        <div class="input-box-container">
+            <textarea id="query" placeholder="Enter your research topic/content request here... (e.g., 'Impact of AI on Modern Education')"></textarea>
+        </div>
+
+        <div class="profile-grid">
+            <div class="profile-item">
+                <label>Content Type</label>
+                <select id="contentType">
+                    <option value="Blog">Blog Post</option>
+                    <option value="LinkedIn">LinkedIn Update</option>
+                    <option value="Instagram">Instagram Caption</option>
+                    <option value="Letter">Formal Letter</option>
+                    <option value="Report">Research Report</option>
+                </select>
+            </div>
+            <div class="profile-item">
+                <label>Tone</label>
+                <select id="tone">
+                    <option value="professional">Professional</option>
+                    <option value="casual">Casual & Friendly</option>
+                    <option value="technical">Technical Expert</option>
+                    <option value="persuasive">Persuasive</option>
+                </select>
+            </div>
+            <div class="profile-item">
+                <label>Audience</label>
+                <select id="audience">
+                    <option value="student">Students</option>
+                    <option value="developer">Developers</option>
+                    <option value="business">Business Leaders</option>
+                    <option value="general">General Public</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="checkbox-row" onclick="toggleEmail()">
+            <input type="checkbox" id="sendEmail" onclick="event.stopPropagation()">
+            <label for="sendEmail" style="cursor:pointer; font-weight: 500;">Deliver final version to my inbox</label>
+        </div>
+
+        <div id="emailGroup">
+            <input type="email" id="email" placeholder="Enter your email address">
+        </div>
+
+        <button id="mainAction" class="main-btn" onclick="executeSuperAgent()">
+            <span id="btnText">Launch Super Agent</span>
+        </button>
+
+        <div id="status" class="status-msg"></div>
+
+        <div id="resultArea">
+            <div class="result-container">
+                <div class="result-header">
+                    <div class="result-title">Synthesized Content</div>
+                    <div class="result-actions">
+                        <button class="action-btn" onclick="copyResult()">Copy</button>
+                        <button class="action-btn primary" onclick="sendToEmail()">Shoot Email</button>
+                    </div>
+                </div>
+                <textarea id="resultText" class="result-editor"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleEmail() {
+            const check = document.getElementById('sendEmail');
+            const group = document.getElementById('emailGroup');
+            check.checked = !check.checked;
+            group.style.display = check.checked ? 'block' : 'none';
+        }
+
+        // Prevent label click from double toggling
+        document.getElementById('sendEmail').onclick = function(e) {
+            e.stopPropagation();
+            document.getElementById('emailGroup').style.display = this.checked ? 'block' : 'none';
+        }
+
+        async function executeSuperAgent() {
+            const query = document.getElementById('query').value;
+            const context = {
+                content_type: document.getElementById('contentType').value,
+                tone: document.getElementById('tone').value,
+                audience: document.getElementById('audience').value
+            };
+            const sendEmail = document.getElementById('sendEmail').checked;
+            const email = document.getElementById('email').value;
+            
+            const btn = document.getElementById('mainAction');
+            const btnText = document.getElementById('btnText');
+            const resultArea = document.getElementById('resultArea');
+            const resultText = document.getElementById('resultText');
+
+            if (!query) {
+                showStatus("What should I research for you?", "error");
+                return;
+            }
+
+            if (sendEmail && !email) {
+                showStatus("Please provide an email address for delivery.", "error");
+                return;
+            }
+
+            // UI State Change
+            btn.disabled = true;
+            btnText.innerHTML = '<div class="loader"></div> Processing with RAG...';
+            hideStatus();
+            resultArea.style.display = 'none';
+
+            try {
+                const response = await fetch('/run-task', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        content: query, 
+                        profile: context,
+                        email: email, 
+                        send_email: sendEmail,
+                        super_agent: true
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultArea.style.display = 'block';
+                    resultText.value = data.message;
+                    showStatus("Synthesized successfully!", "success");
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else {
+                    showStatus("Error: " + data.message, "error");
+                }
+            } catch (error) {
+                showStatus("Connection to Bharath AI engine lost.", "error");
+            } finally {
+                btn.disabled = false;
+                btnText.innerHTML = 'Launch Super Agent';
+            }
+        }
+
+        function showStatus(msg, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = msg;
+            statusDiv.className = 'status-msg ' + type;
+            statusDiv.style.display = 'block';
+        }
+
+        function hideStatus() {
+            document.getElementById('status').style.display = 'none';
+        }
+
+        async function sendToEmail() {
+            const content = document.getElementById('resultText').value;
+            const email = document.getElementById('email').value;
+            if (!email) {
+                showStatus("Enter email address above first.", "error");
+                return;
+            }
+
+            showStatus("Sending to " + email + "...", "success");
+            try {
+                const response = await fetch('/send-edited-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: content, email: email })
+                });
+                if (response.ok) showStatus("Delivered successfully!", "success");
+            } catch(e) {
+                showStatus("Delivery failed.", "error");
+            }
+        }
+
+        function copyResult() {
+            const resultText = document.getElementById('resultText');
+            resultText.select();
+            document.execCommand('copy');
+            showStatus("Content copied to clipboard!", "success");
+        }
+    </script>
+</body>
+</html>

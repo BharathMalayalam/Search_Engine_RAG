@@ -1,0 +1,3 @@
+EMAIL='bharathmalayalam25@gmail.com'
+PASSWORD_LEN=16
+DEBUG: [SUCCESS] Email sent successfully.

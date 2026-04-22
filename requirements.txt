@@ -1,0 +1,10 @@
+flask
+python-dotenv
+wikipedia
+scikit-learn
+numpy
+requests
+sentence-transformers
+datasets
+transformers
+torch
