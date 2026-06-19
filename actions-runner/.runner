@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 21,
+  "agentName": "BHARATH",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus7.actions.githubusercontent.com/jI9M8FsP0KqStBTuJO2Rv9XoXgPghhbihFjPHqF2ZJR8AMKGez/",
+  "gitHubUrl": "https://github.com/BharathMalayalam/Search_Engine_RAG",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}

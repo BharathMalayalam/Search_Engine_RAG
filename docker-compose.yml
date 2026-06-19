@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  search-engine:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+      # Add your environment variables here
+      # - SERPER_API_KEY=${SERPER_API_KEY}
+      # - SMTP_PASSWORD=${SMTP_PASSWORD}
+    volumes:
+      # Optional: mount for persistent model cache or data
+      # - ./data:/app/data
+      # - ./agents:/app/agents
+    restart: unless-stopped

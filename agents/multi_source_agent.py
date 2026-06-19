@@ -21,10 +21,14 @@ class MultiSourceAgent:
         print("DEBUG: Loading Semantic Re-Ranker...")
         self.brain = SentenceTransformer('all-MiniLM-L6-v2')
         
-        # 2. Load the Generation Model (Flan-T5: Much better at following RAG instructions than GPT2)
+        # 2. Load the Generation Model (Flan-T5: much better at following RAG instructions than GPT2)
         print("DEBUG: Loading Local Synthesis Model (Flan-T5-Base)...")
         # flan-t5-base is ~250M params, much smarter than distilgpt2
-        self.generator = pipeline('text2text-generation', model='google/flan-t5-base', device=-1)
+        try:
+            self.generator = pipeline('text2text-generation', model='google/flan-t5-base', device=-1)
+        except Exception:
+            print("DEBUG: Falling back to text-generation pipeline for current Transformers version")
+            self.generator = pipeline('text-generation', model='google/flan-t5-base', device=-1)
 
     def search_sources(self, query):
         """Aggregates all raw text from sources"""

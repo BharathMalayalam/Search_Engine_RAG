@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify, render_template
 from orchestrator import orchestrator
 from dotenv import load_dotenv
+from flask_cors import CORS
 import sys
 
 load_dotenv(override=True)
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/", methods=["GET"])
 def home():

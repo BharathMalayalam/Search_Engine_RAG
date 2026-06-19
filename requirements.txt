@@ -8,3 +8,7 @@ sentence-transformers
 datasets
 transformers
 torch
+flask-cors
+arxiv
+duckduckgo-search
+PyPDF2
