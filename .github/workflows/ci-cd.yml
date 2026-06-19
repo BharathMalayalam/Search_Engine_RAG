@@ -1,18 +1,18 @@
 name: Build and Deploy
 
 on:
-	push:
-		branches:
-			- main
-			- develop
-	pull_request:
-		branches:
-			- main
-			- develop
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
 env:
-	REGISTRY: ghcr.io
-	IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
 	build-frontend:
