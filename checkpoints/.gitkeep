@@ -1,0 +1,2 @@
+# Keep checkpoints directory in repository so Docker build context includes this folder.
+# Add model files here if needed for runtime.
